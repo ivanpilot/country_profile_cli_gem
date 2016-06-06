@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require "../lib/country_profile_cli_gem"
+
+CountryProfileCliGem::CLI.new.call
