@@ -15,15 +15,15 @@ bin/country_profile
 Please, provide a country name or type list to get all the countries available in the database or type exit
 brazil
 
-country name:
-country alpha code:
-Capital city:
+country name: Brazil
+country alpha code: bra
+Capital city: Rio de Janeiro
 Country size:
 Geographic coordinates:
 ----------------------
-Total population(m):
-Male population(%):
-Female population(%):
+Total population(m): 206
+Male population(%): 50
+Female population(%): 50
 Population density(ppl/sq. km):
 ----------------------
 GDP($USbn):
