@@ -11,6 +11,11 @@ describe CountryProfileCliGem do
     end
   end
 
-  
+  context CountryProfileCliGem::CLI do
+    it 'Welcome the user upon call' do
+      cli = CountryProfileCliGem::CLI.new
+      expect {cli.call}.to output("Welcome to Country Profile Gem\n").to_stdout
+    end
+  end
 
 end
