@@ -1,3 +1,5 @@
+require 'pry'
+
 require_relative "./country_profile_cli_gem/version"
 require_relative "./country_profile_cli_gem/cli"
 
