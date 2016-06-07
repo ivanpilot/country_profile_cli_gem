@@ -5,7 +5,12 @@ describe CountryProfileCliGem do
     expect(CountryProfileCliGem::VERSION).not_to be nil
   end
 
-  it 'does something useful' do
-    expect(false).to eq(true)
+  context 'CountryProfileCliGem::CLI' do
+    it 'is defined' do
+      expect(CountryProfileCliGem::CLI).to be_a(Class)
+    end
   end
+
+  
+
 end
