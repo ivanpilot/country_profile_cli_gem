@@ -1,0 +1,3 @@
+class CountryProfileCliGem::Indicators
+
+end

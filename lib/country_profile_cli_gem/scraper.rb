@@ -1,5 +1,3 @@
-require_relative '../country_profile_cli_gem'
-
 class CountryProfileCliGem::Scraper
 
   def self.scrape_country_isocode
@@ -12,17 +10,14 @@ class CountryProfileCliGem::Scraper
       if country.css(".WTN").text.strip.match(/\D+/)
         hash_key = country.css(".WTN").text.strip.to_sym
       end
-      if country.css(".WTNC").text.strip.match(/\D+/) && hash_key
+      if country.css(".WTNC").text.strip.match(/\D+/) && hash_key != ""
         hash[hash_key] = country.css(".WTNC").text.strip.downcase
       end
     end
     hash
-    puts hash
   end
+
 end
-
-
-CountryProfileCliGem::Scraper.scrape_country_isocode
 
 
 ###########  FYI  #########################
@@ -32,13 +27,6 @@ CountryProfileCliGem::Scraper.scrape_country_isocode
 # result_gross = country_array.collect {|country| country.search(".WTNC").text.strip}.flatten
 # result_clean = result_gross.delete_if {|country_code| country_code.match(/\d+/) || country_code == ""}
 # puts result_clean
-# puts "above is the array"
-# puts "------------------------"
-# puts "below this is the count"
-# puts result_gross.count
-# puts "#{263 * 2}"
-
-
 
 # Retrieve country name in an array >> 264 item
 # result_gross = country_array.collect do |country|
@@ -46,4 +34,3 @@ CountryProfileCliGem::Scraper.scrape_country_isocode
 # end
 # result_clean = result_gross.delete_if{|element| element == ""}
 # puts result_clean
-# puts result_clean.count

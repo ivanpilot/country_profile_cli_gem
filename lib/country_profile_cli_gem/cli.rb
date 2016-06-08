@@ -4,31 +4,43 @@ class CountryProfileCliGem::CLI
   # get the input from user
   # create a url with the user
 
-  # attr_accessor :all
+  # attr_reader :country_hash
 
   def call
     puts "Welcome to Country Profile Gem"
-    self.get_user_input
+    self.menu
   end
 
-  def get_user_input
+  def menu
     input = nil
     while input != "exit"
       puts "Please, provide a country name or type list to get all the countries available in the database or type exit"
-      input = gets.strip
-      if input == "brazil"
+      input = gets.downcase.strip
+
+      case input
+      when 'brazil'
         Parsing.new
-      elsif input == "list"
-        self.all
+      when 'list'
+        list_countries
+      when 'exit'
+        input
       else
         puts "I am not sure what you mean."
       end
+
     end
-    puts "Thank you very much. See you soon."
+    puts "See you soon!"
   end
 
-  def country_data(name)
-    #call a parsing method / kind of scraping
+  def list_countries
+    @country_hash = self.country_hash
+    @country_hash.each do |name, isocode|
+      puts "#{name}"
+    end
+  end
+
+  def country_hash
+    CountryProfileCliGem::Scraper.scrape_country_isocode
   end
 
   def ouptput
