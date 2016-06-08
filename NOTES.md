@@ -31,3 +31,20 @@ GDP growth(%):
 GDP per capita($US):
 Labor force(ppl m):
 Unemployment rate(% of total population):
+
+user type an input
+verify if this input match a key of the hash
+if country_name exists
+  returns corresponding isocode
+  creates a valid first part of url based in the isocode
+  http://api.worldbank.org/countries/bra/indicators/
+
+  for each indicator, create a complete url based on first url + indicator id + second part of url
+  store each of the return value in an array or hash
+  return this array or hash
+
+else
+  return nil
+end
+
+http://api.worldbank.org/countries/bra/indicators/NY.GDP.MKTP.CD?date=2014:2014&format=json

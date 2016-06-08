@@ -17,17 +17,15 @@ class CountryProfileCliGem::CLI
       puts "Please, provide a country name or type list to get all the countries available in the database or type exit"
       input = gets.downcase.strip
 
-      case input
-      when 'brazil'
-        Parsing.new
-      when 'list'
+      if hash_key.include?(input)
+       output
+      elsif input == "list"
         list_countries
-      when 'exit'
+      elsif input == "exit"
         input
       else
         puts "I am not sure what you mean."
       end
-
     end
     puts "See you soon!"
   end
@@ -43,7 +41,8 @@ class CountryProfileCliGem::CLI
     CountryProfileCliGem::Scraper.scrape_country_isocode
   end
 
-  def ouptput
+  def ouptput (country)
+    hash = CountryProfileCliGem::Indicators.new(country)
     puts "country name: Brazil"
     puts "country alpha code: bra"
     puts "Capital city: Rio de Janeiro"
