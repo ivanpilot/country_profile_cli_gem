@@ -1,11 +1,5 @@
 class CountryProfileCliGem::CLI
 
-  # provide a list of all countries to the user
-  # get the input from user
-  # create a url with the user
-
-  # attr_reader :country_hash
-
   def call
     puts "Welcome to Country Profile Gem"
     self.menu
@@ -15,10 +9,10 @@ class CountryProfileCliGem::CLI
     input = nil
     while input != "exit"
       puts "Please, provide a country name or type list to get all the countries available in the database or type exit"
-      input = gets.downcase.strip
+      input = gets.strip
 
-      if hash_key.include?(input)
-       output
+      if country_available?(input)
+        output_country_info(input)
       elsif input == "list"
         list_countries
       elsif input == "exit"
@@ -31,8 +25,8 @@ class CountryProfileCliGem::CLI
   end
 
   def list_countries
-    @country_hash = self.country_hash
-    @country_hash.each do |name, isocode|
+    country_hash = self.country_hash
+    country_hash.each do |name, isocode|
       puts "#{name}"
     end
   end
@@ -41,27 +35,41 @@ class CountryProfileCliGem::CLI
     CountryProfileCliGem::Scraper.scrape_country_isocode
   end
 
-  def ouptput (country)
-    hash = CountryProfileCliGem::Indicators.new(country)
-    puts "country name: Brazil"
-    puts "country alpha code: bra"
-    puts "Capital city: Rio de Janeiro"
-    puts "Country size:"
-    puts "Geographic coordinates:"
-    puts "----------------------"
-    puts "Total population(m): 206"
-    puts "Male population(%): 50"
-    puts "Female population(%): 50"
-    puts "Population density(ppl/sq. km):"
-    puts "----------------------"
-    puts "GDP($USbn):"
-    puts "GDP growth(%):"
-    puts "GDP per capita($US):"
-    puts "Labor force(ppl m):"
-    puts "Unemployment rate(% of total population):"
-
+  def country_available?(country)
+    hash = self.country_hash
+    hash.key?(country.to_sym)
   end
 
+  def country_card(country)
+    country_hash = self.country_hash
+    isocode = country_hash[country.to_sym]
+    CountryProfileCliGem::Indicators.new(isocode).country_profile
+  end
 
+  def output_country_info(country)
+    hash = self.country_card(country)
+    puts "Country name: #{hash[:country_name]}"
+    puts "Country isocode: #{hash[:country_isocode]}"
+    puts "Capital city: #{hash[:capital_city]}"
+    puts "Country size: #{hash[:country_size]}"
+    puts "Geographic coordinates: longitude(#{hash[:longitude]}), latitude(#{hash[:latitude]})"
+    puts "----------------------"
+    puts "Total population(m ppl): #{hash[:total_population]}"
+    puts "Male population(%): #{hash[:male_population]}"
+    puts "Female population(%): #{hash[:female_population]}"
+    puts "Population density(ppl/sq. km): #{hash[:population_density]}"
+    puts "----------------------"
+    puts "GDP($USbn): #{hash[:gdp]}"
+    puts "GDP growth(%): #{hash[:gdp_growth]}"
+    puts "GDP per capita($US): #{hash[:gdp_per_capita]}"
+    puts "Labor force(m ppl): #{hash[:labor_force]}"
+    puts "Unemployment rate(% of total population): #{hash[:unemployment_rate]}"
+  end
 
 end
+
+# hash = {
+#   france: "french",
+#   england: "british",
+#   italy: "italian"
+# }
