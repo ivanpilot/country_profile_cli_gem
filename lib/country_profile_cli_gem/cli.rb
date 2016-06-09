@@ -8,7 +8,7 @@ class CountryProfileCliGem::CLI
   def menu
     input = nil
     while input != "exit"
-      puts "Please, provide a country name or type list to get all the countries available in the database or type exit"
+      puts "\nPlease, provide a country name or type list to get all the countries available in the database or type exit"
       input = gets.strip
 
       if country_available?(input)
@@ -18,10 +18,10 @@ class CountryProfileCliGem::CLI
       elsif input == "exit"
         input
       else
-        puts "I am not sure what you mean."
+        puts "\nI am not sure what you mean."
       end
     end
-    puts "See you soon!"
+    puts "\nSee you soon!"
   end
 
   def list_countries
@@ -77,7 +77,6 @@ class CountryProfileCliGem::CLI
       puts "GDP per capita($US): #{hash[:gdp_per_capita]}"
       puts "Labor force(m ppl): #{hash[:labor_force]}"
       puts "Unemployment rate(% of total population): #{hash[:unemployment_rate]}"
-      puts ""
     end
   end
 

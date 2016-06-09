@@ -29,19 +29,16 @@ class CountryProfileCliGem::Indicators
   end
 
   def valid_basic_data(type)
-    result = self.json_overview[1][0]
-    result[type]
+    self.json_overview[1][0][type]
   end
 
   def valid_indicator_data(indicator)
-    result = self.json_indicator(indicator)[1][0]
-    result["value"]
+    self.json_indicator(indicator)[1][0]["value"]
   end
 
   def country_profile
-    hash = nil
     if self.json_overview.count == 1
-      hash
+      nil
     else
       hash = {
         country_name: self.valid_basic_data("name"),
