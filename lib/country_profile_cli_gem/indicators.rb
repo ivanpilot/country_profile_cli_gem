@@ -1,4 +1,4 @@
-# require_relative "../country_profile_cli_gem"
+require_relative "../country_profile_cli_gem"
 class CountryProfileCliGem::Indicators
 
   LAND_AREA = "AG.LND.TOTL.K2"
@@ -31,34 +31,61 @@ class CountryProfileCliGem::Indicators
     json = JSON.parse(response.body)
   end
 
-  def request_indicator_data(indicator)
+  def valid_basic_data(type)
+    # self.request_basic_data[1][0][type]
+    # binding.pry
+    if self.request_basic_data[0]["message"][0]["id"] == "120"
+      # raise CountryProfileCliGem::CountryError
+      begin
+        raise CountryProfileCliGem::CountryError
+      rescue CountryProfileCliGem::CountryError => error
+        puts error.message
+      end
+    else
+      self.request_basic_data[1][0][type]
+    end
+  end
+
+  def valid_indicator_data(indicator)
     uri = self.url_indicator(indicator)
     response = Net::HTTP.get_response(uri)
     json = JSON.parse(response.body)
-    result = json[1][0]["value"]
+
+    if json[0]["message"][0]["id"] == "120"
+      # raise CountryProfileCliGem::CountryError
+      begin
+        raise CountryProfileCliGem::CountryError
+      rescue CountryProfileCliGem::CountryError => error
+        puts error.message
+      end
+    else
+      json[1][0]["value"]
+    end
   end
 
   def country_profile
     hash = {
-      country_name: self.request_basic_data[1][0]["name"],
-      country_isocode: self.request_basic_data[1][0]["id"],
-      capital_city: self.request_basic_data[1][0]["capitalCity"],
-      country_size: self.request_indicator_data(LAND_AREA).to_i,
-      longitude: self.request_basic_data[1][0]["longitude"],
-      latitude: self.request_basic_data[1][0]["latitude"],
-      total_population: self.request_indicator_data(TOTAL_POPULATION).to_i,
-      male_population: 100 * (1.00 - self.request_indicator_data(FEMALE_POPULATION).to_f / 100),
-      female_population: self.request_indicator_data(FEMALE_POPULATION).to_f,
-      population_density: self.request_indicator_data(POPULATION_DENSITY).to_i,
-      gdp: self.request_indicator_data(GDP).to_i,
-      gdp_growth: self.request_indicator_data(GDP_GROWTH).to_f,
-      gdp_per_capita: self.request_indicator_data(GDP_CAPITA).to_i,
-      labor_force: self.request_indicator_data(LABOR_FORCE).to_i,
-      unemployment_rate: self.request_indicator_data(UNEMPLOYMENT_RATE).to_f
+      country_name: self.valid_basic_data("name"),
+      country_isocode: self.valid_basic_data("id"),
+      capital_city: self.valid_basic_data("capitalCity"),
+      country_size: self.valid_indicator_data(LAND_AREA).to_i,
+      longitude: self.valid_basic_data("longitude"),
+      latitude: self.valid_basic_data("latitude"),
+      total_population: self.valid_indicator_data(TOTAL_POPULATION).to_i,
+      male_population: 100 * (1.00 - self.valid_indicator_data(FEMALE_POPULATION).to_f / 100),
+      female_population: self.valid_indicator_data(FEMALE_POPULATION).to_f,
+      population_density: self.valid_indicator_data(POPULATION_DENSITY).to_i,
+      gdp: self.valid_indicator_data(GDP).to_i,
+      gdp_growth: self.valid_indicator_data(GDP_GROWTH).to_f,
+      gdp_per_capita: self.valid_indicator_data(GDP_CAPITA).to_i,
+      labor_force: self.valid_indicator_data(LABOR_FORCE).to_i,
+      unemployment_rate: self.valid_indicator_data(UNEMPLOYMENT_RATE).to_f
     }
+    # binding.pry
+    # puts hash
   end
 
 end
 
-# brazil = CountryProfileCliGem::Indicators.new("bra")
-# brazil.country_profile
+brazil = CountryProfileCliGem::Indicators.new("yug")
+brazil.country_profile
