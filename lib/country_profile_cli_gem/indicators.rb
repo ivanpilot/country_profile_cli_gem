@@ -1,4 +1,3 @@
-require_relative "../country_profile_cli_gem"
 class CountryProfileCliGem::Indicators
 
   LAND_AREA = "AG.LND.TOTL.K2"
@@ -29,28 +28,20 @@ class CountryProfileCliGem::Indicators
     JSON.parse(response.body)
   end
 
-  def json_valid?(json)
-    json ? json : nil
-  end
-
   def valid_basic_data(type)
     result = self.json_overview[1][0]
     result[type]
   end
 
   def valid_indicator_data(indicator)
-    result = self.json_indicator[1][0]
+    result = self.json_indicator(indicator)[1][0]
     result["value"]
   end
 
   def country_profile
-    # binding.pry
-    if self.json_overview[0].class == Hash
-      begin
-        raise CountryProfileCliGem::CountryError
-      rescue CountryProfileCliGem::CountryError => error
-        puts error.message
-      end
+    hash = nil
+    if self.json_overview.count == 1
+      hash
     else
       hash = {
         country_name: self.valid_basic_data("name"),
@@ -70,11 +61,6 @@ class CountryProfileCliGem::Indicators
         unemployment_rate: self.valid_indicator_data(UNEMPLOYMENT_RATE).to_f
       }
     end
-    # binding.pry
-    # puts hash
   end
 
 end
-
-brazil = CountryProfileCliGem::Indicators.new("yug")
-brazil.country_profile

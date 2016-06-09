@@ -49,7 +49,11 @@ class CountryProfileCliGem::CLI
 
   def output_country_info(country)
     if self.country_card(country).class != Hash
-      raise CountryProfileCliGem::CountryError
+      begin
+        raise CountryProfileCliGem::CountryError
+      rescue CountryProfileCliGem::CountryError => error
+        puts error.message
+      end
     else
       hash = self.country_card(country)
       puts ""
