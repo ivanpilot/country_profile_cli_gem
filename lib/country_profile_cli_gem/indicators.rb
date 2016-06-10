@@ -48,7 +48,7 @@ class CountryProfileCliGem::Indicators
         longitude: self.valid_basic_data("longitude"),
         latitude: self.valid_basic_data("latitude"),
         total_population: self.valid_indicator_data(TOTAL_POPULATION).to_i,
-        male_population: 100 * (1.00 - self.valid_indicator_data(FEMALE_POPULATION).to_f / 100),
+        male_population: 100 - self.valid_indicator_data(FEMALE_POPULATION).to_f,
         female_population: self.valid_indicator_data(FEMALE_POPULATION).to_f,
         population_density: self.valid_indicator_data(POPULATION_DENSITY).to_i,
         gdp: self.valid_indicator_data(GDP).to_i,
