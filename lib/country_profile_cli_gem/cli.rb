@@ -92,6 +92,10 @@ class CountryProfileCliGem::CLI
       puts "GDP per capita (current $US): #{hash[:gdp_per_capita]}"
       puts "Labor force (m ppl): #{hash[:labor_force] / 1000000}"
       puts "Unemployment rate (% of total labor force): #{hash[:unemployment_rate].round(1)}"
+      puts ""
+      puts "----------------------------------------------------------------"
+      puts ""
+      puts "All data and information are sourced from the World Bank database and are displayed for the year 2014."
     end
   end
 

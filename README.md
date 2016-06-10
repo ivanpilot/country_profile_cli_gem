@@ -1,8 +1,10 @@
 # CountryProfileCliGem
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/country_profile_cli_gem`. To experiment with that code, run `bin/console` for an interactive prompt.
+The country_profile_cli_gem allows you to extract a number of key indicators for a country.
+Run: country_profile after installing the gem to launch the program.
+Once installed and running, you can choose to display the list of countries for which indicators are available, retrieve indicators for a specific country or zone (eg. European Union) or exit the program.
 
-TODO: Delete this and the text above, and describe your gem
+All data and information are sourced from the World Bank database and are displayed for the year 2014.
 
 ## Installation
 
@@ -22,7 +24,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Run: country_profile after installing the gem
 
 ## Development
 
@@ -39,3 +41,5 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
+## Contact
+ivanpilot@gmail.com
