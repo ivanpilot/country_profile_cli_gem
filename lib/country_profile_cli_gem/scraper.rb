@@ -21,7 +21,7 @@ end
 
 
 ###########  FYI  #########################
-# DO NOT ERASE THE BELOW  !!!!!!!!!!!!!!!!!!!!!!!!!
+# DO NOT ERASE THE BELOW  !!!!!!!!!!!!!!!!!
 
 # Retrieve country code in an array >> 262 item
 # result_gross = country_array.collect {|country| country.search(".WTNC").text.strip}.flatten

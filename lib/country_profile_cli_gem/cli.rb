@@ -8,11 +8,12 @@ class CountryProfileCliGem::CLI
   def menu
     input = nil
     while input != "exit"
-      puts "\nPlease, provide a country name or type list to get all the countries available in the database or type exit"
+      puts "\nPlease, provide a country name or type \'list\' to get all the countries available in the database or type \'exit\'"
       input = gets.strip
+      input_formatted = self.reformat_input(input)
 
-      if country_available?(input)
-        output_country_info(input)
+      if country_available?(input_formatted)
+        output_country_info(input_formatted)
       elsif input == "list"
         list_countries
       elsif input == "exit"
@@ -22,6 +23,21 @@ class CountryProfileCliGem::CLI
       end
     end
     puts "\nSee you soon!"
+  end
+
+  def reformat_input(string)
+    result = string.strip.split(" ").collect do |word|
+      new_word = []
+      ddf = word.split("").each_with_index do |char, index|
+        if index == 0
+          new_word << char.capitalize
+        else
+          new_word << char
+        end
+      end
+      new_word.join("")
+    end
+    result.join(" ")
   end
 
   def list_countries
@@ -44,7 +60,6 @@ class CountryProfileCliGem::CLI
     country_hash = self.country_hash
     isocode = country_hash[country.to_sym]
     CountryProfileCliGem::Indicators.new(isocode).country_profile
-    # binding.pry
   end
 
   def output_country_info(country)
@@ -82,8 +97,6 @@ class CountryProfileCliGem::CLI
 
 end
 
-# hash = {
-#   france: "french",
-#   england: "british",
-#   italy: "italian"
-# }
+# def reformat(string)
+#   string.split(" ").collect {|word| word == word.capitalize ? word : word.capitalize}.join(" ")
+# end
