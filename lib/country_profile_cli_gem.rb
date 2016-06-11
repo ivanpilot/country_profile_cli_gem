@@ -6,7 +6,7 @@ require "uri"
 require "json"
 
 require_relative "./country_profile_cli_gem/version"
-require_relative "./country_profile_cli_gem/indicators_constants"
+require_relative "./country_profile_cli_gem/constants"
 require_relative "./country_profile_cli_gem/scraper"
 require_relative "./country_profile_cli_gem/error.rb"
 require_relative "./country_profile_cli_gem/indicators_current_year"

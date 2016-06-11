@@ -1,4 +1,4 @@
-class CountryProfileCliGem::IndicatorsConstants
+module CountryProfileCliGem
 
   LAND_AREA = "AG.LND.TOTL.K2"
   TOTAL_POPULATION = "SP.POP.TOTL"
