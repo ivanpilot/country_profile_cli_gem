@@ -2,7 +2,8 @@ class CountryProfileCliGem::CLI
 
   def initialize
     puts "I will load the list of countries"
-    # CountryProfileCliGem::Country.load_country_list
+    CountryProfileCliGem::Country.load_country_list
+    puts "list of countries loaded"
   end
 
   def call

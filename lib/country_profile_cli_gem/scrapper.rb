@@ -1,4 +1,4 @@
-class CountryProfileCliGem::Scraper
+class CountryProfileCliGem::Scrapper
 
   def self.scrape_country_isocode
     html = open("http://wits.worldbank.org/wits/wits/witshelp/Content/Codes/Country_Codes.htm")
