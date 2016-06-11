@@ -14,8 +14,11 @@ class CountryProfileCliGem::CLI
       input_formatted = self.reformat_input(input)
 
       if country_available?(input_formatted)
-        output_country_info(input_formatted)
-        self.sub_menu
+        return_value = output_country_info(input_formatted)
+
+        if return_value.class == Hash
+          self.sub_menu
+        end
       elsif input == "list"
         list_countries
       elsif input == "exit"
@@ -56,8 +59,8 @@ class CountryProfileCliGem::CLI
       elsif input.to_i.between?(1, 9)
         @indicator_and_period[:indicator_number] = input.to_i
         @indicator_and_period[:indicator_period] = self.time_series
-        @indicator_and_period
-        # puts "#{@indicator_and_period}"
+        @indicator_and_period ######THIS MUST CALL A NEW CLASS FOR TIME SERIES
+        # puts "#{@indicator_and_period}" >>> MUST BE DEVELOPPED!!!!
       else
         puts "\nI am not sure what you mean."
       end
@@ -91,7 +94,7 @@ class CountryProfileCliGem::CLI
   def country_card(country)
     country_hash = self.country_hash
     isocode = country_hash[country.to_sym]
-    CountryProfileCliGem::Indicators.new(isocode).country_profile
+    CountryProfileCliGem::IndicatorsCurrentYear.new(isocode).country_profile
   end
 
   def output_country_info(country)
@@ -132,6 +135,7 @@ class CountryProfileCliGem::CLI
       puts "----------------------------------------------------------------"
       puts ""
       puts "All data and information presented above are sourced from the World Bank database and are displayed for the year 2014."
+      hash
     end
   end
 
