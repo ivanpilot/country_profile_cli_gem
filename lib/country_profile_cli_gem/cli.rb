@@ -1,5 +1,10 @@
 class CountryProfileCliGem::CLI
 
+  def initialize
+    puts "I will load the list of countries"
+    # CountryProfileCliGem::Country.load_country_list
+  end
+
   def call
     puts "Welcome to Country Profile Gem"
     self.display_menu
@@ -13,11 +18,10 @@ class CountryProfileCliGem::CLI
       input = self.get_user_input
 
       if input == 'list'
-        list_of_countries = CountryProfileCliGem::Output.country_list
-        puts list_of_countries
-      elsif CountryProfileCliGem::Country.new.find_by_name?(self.reformat_user_input(input)) && CountryProfileCliGem::Country.new.indicators_available?(self.reformat_user_input(input)) ##Output instantiate with a country
-        puts "show country standard indicators"  ######TO BE MODIFIED
-        self.display_sub_menu ####PUT A CHECK CONDItioN country exist
+        puts "this is the list of countries"
+      elsif input == 'country name'
+        puts "these are the standard and macro indicators for 2014"
+        self.display_sub_menu
       elsif input == 'exit'
         input
       else
@@ -28,31 +32,72 @@ class CountryProfileCliGem::CLI
     puts "\nSee you soon!"
   end
 
-  def display_sub_menu ###REWRITE THIS FUNCTION
-    if countr
-  end
-
   def display_sub_menu
     input = nil
-    @indicator_and_period = {}
 
-    while input != "exit"
+    until input == "exit"
       puts "\nif you would like to know about historical data for a specific indicator over a certain period of time, enter the number of the indicator, otherwise type \'exit\'"
-      input = gets.strip
+      input = self.get_user_input
 
-      if input == "exit"
+      if input.to_i.between?(1, 9)
+        {
+          :indicator => input.to_i,
+          :time_period => self.time_period
+        }
+      elsif input == "exit"
         input
-      elsif input.to_i.between?(1, 9)
-        @indicator_and_period[:indicator_number] = input.to_i
-        @indicator_and_period[:indicator_period] = self.time_series
-        @indicator_and_period ######THIS MUST CALL A NEW CLASS FOR TIME SERIES
-        # puts "#{@indicator_and_period}" >>> MUST BE DEVELOPPED!!!!
       else
         puts "\nI am not sure what you mean."
       end
     end
-    # @indicator_and_period = {}
   end
+
+  # Private
+  def get_user_input
+    gets.strip
+  end
+
+  # Private
+  def reformat_user_input(initial_input)
+    initial_input.split(" ").collect do |word|
+      new_word = []
+      word.split("").each_with_index {|char, index| index == 0 ? new_word << char.capitalize : new_word << char }
+      new_word.join("")
+    end
+    input_formatted.join(" ")
+  end
+
+  def time_period
+    puts "\nHow many years of data would you would like to see? You can go back up to 40 years for certain countries."
+
+    input = self.get_user_input
+    input.to_i < 2 || input.to_i > 40 ? self.time_period : input
+  end
+
+end
+
+
+  # def display_sub_menu
+  #   input = nil
+  #   @indicator_and_period = {}
+  #
+  #   while input != "exit"
+  #     puts "\nif you would like to know about historical data for a specific indicator over a certain period of time, enter the number of the indicator, otherwise type \'exit\'"
+  #     input = gets.strip
+  #
+  #     if input == "exit"
+  #       input
+  #     elsif input.to_i.between?(1, 9)
+  #       @indicator_and_period[:indicator_number] = input.to_i
+  #       @indicator_and_period[:indicator_period] = self.time_series
+  #       @indicator_and_period ######THIS MUST CALL A NEW CLASS FOR TIME SERIES
+  #       # puts "#{@indicator_and_period}" >>> MUST BE DEVELOPPED!!!!
+  #     else
+  #       puts "\nI am not sure what you mean."
+  #     end
+  #   end
+  #   # @indicator_and_period = {}
+  # end
 
 
   # def menu
@@ -79,28 +124,3 @@ class CountryProfileCliGem::CLI
   #   end
   #   puts "\nSee you soon!"
   # end
-
-  # Private
-  def get_user_input
-    gets.strip
-  end
-
-  # Private
-  def reformat_user_input(initial_input)
-    initial_input.split(" ").collect do |word|
-      new_word = []
-      word.split("").each_with_index {|char, index| index == 0 ? new_word << char.capitalize : new_word << char }
-      new_word.join("")
-    end
-    input_formatted.join(" ")
-  end
-
-
-  def time_series
-    puts "\nPlease, provide the number of years you would like to go back in time. You can go back up to 40 years for certain countries."
-
-    input = gets.strip.to_i
-    input < 2 || input > 40 ? self.time_series : input
-  end
-
-end
