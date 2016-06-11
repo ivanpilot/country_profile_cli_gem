@@ -40,10 +40,11 @@ class CountryProfileCliGem::CLI
       input = self.get_user_input
 
       if input.to_i.between?(1, 9)
-        {
+        time_series = {
           :indicator => input.to_i,
           :time_period => self.time_period
         }
+        puts "call a method of a class passing the times_series hash"
       elsif input == "exit"
         input
       else
@@ -70,7 +71,7 @@ class CountryProfileCliGem::CLI
   def time_period
     puts "\nHow many years of data would you would like to see? You can go back up to 40 years for certain countries."
 
-    input = self.get_user_input
-    input.to_i < 2 || input.to_i > 40 ? self.time_period : input
+    input = self.get_user_input.to_i
+    input < 2 || input > 40 ? self.time_period : input
   end
 end
