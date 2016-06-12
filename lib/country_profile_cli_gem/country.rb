@@ -9,15 +9,11 @@ class CountryProfileCliGem::Country
     @name = name
     @isocode = @@list_available[name.to_sym]
     @indicators = []
-    self.class.all << self
+    @@all << self
   end
 
   def self.load_country_list
     @@list_available = CountryProfileCliGem::Scrapper.scrape_country_isocode
-  end
-
-  def save
-    @@all << self
   end
 
   def self.all

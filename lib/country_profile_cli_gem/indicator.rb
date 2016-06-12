@@ -1,24 +1,21 @@
-# require_relative "../country_profile_cli_gem"
-# require_relative "./version"
+require_relative "../country_profile_cli_gem"
+require_relative "./version"
 # require 'pry'
 
 class CountryProfileCliGem::Indicator
 
   YEAR_END = 2014
 
-  attr_accessor :country, :name, :time_period, :year_begin
+  attr_accessor :name, :time_period, :year_begin
+  attr_reader :country
+
+  @@all = []
 
   def initialize(name = nil, time_period = 1)
     @name = name
     @time_period = time_period
-    # if name != nil
-    #   @name = name
-    # end
-    #
-    # if time_period > 1
-    #   @time_period = time_period
-    # end
     @year_begin = YEAR_END - @time_period + 1
+    @@all << self
   end
 
   def country=(country)
@@ -57,6 +54,18 @@ class CountryProfileCliGem::Indicator
       indicator_time_series[self.name.instance_variables + "_" + (YEAR_END - index).to_s] = element["value"]
     end
     indicator_time_series
+  end
+
+  def find_by_name(name)
+    self.all.find {|element| element.name == name}
+  end
+
+  def find_by_country_name(country)
+    self.all.find {|element| element.country.name == country.name}
+  end
+
+  def all
+    @@all
   end
 
 end
