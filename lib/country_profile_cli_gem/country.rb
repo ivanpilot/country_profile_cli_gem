@@ -1,13 +1,14 @@
 class CountryProfileCliGem::Country
 
-  attr_accessor :name, :isocode, :indicator
+  attr_accessor :name, :isocode
+  attr_reader :indicators
 
   @@all = []
 
   def initialize(name)
     @name = name
     @isocode = @@list_available[name.to_sym]
-    @output = nil
+    @indicators = []
     self.class.all << self
   end
 
@@ -15,12 +16,24 @@ class CountryProfileCliGem::Country
     @@list_available = CountryProfileCliGem::Scrapper.scrape_country_isocode
   end
 
+  def save
+    @@all << self
+  end
+
   def self.all
     @@all
   end
 
-  def standard_indicators
+  def add_indicator(indicator)
+    self.indicators << indicator unless self.indicators.include?(indicator)
+    indicator.country = self unless indicator.country = self
+  end
+
+  def country_profile
     # return a hash of all standard and macro indicator
+    standard_indicators = CountryProfileCliGem::Indicator.new(self.isocode).standard_indicators
+
+    puts result
   end
 
   def macro_indicators

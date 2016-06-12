@@ -1,4 +1,4 @@
-require_relative "../country_profile_cli_gem"
+# require_relative "../country_profile_cli_gem"
 # require_relative "./version"
 # require 'pry'
 
@@ -8,11 +8,22 @@ class CountryProfileCliGem::Indicator
 
   attr_accessor :country, :name, :time_period, :year_begin
 
-  def initialize(country, name = nil, time_period = 1)
-    @country = country
+  def initialize(name = nil, time_period = 1)
     @name = name
     @time_period = time_period
+    # if name != nil
+    #   @name = name
+    # end
+    #
+    # if time_period > 1
+    #   @time_period = time_period
+    # end
     @year_begin = YEAR_END - @time_period + 1
+  end
+
+  def country=(country)
+    @country = country
+    country.indicators << self unless country.indicators.include?(self)
   end
 
   def standard_indicators
@@ -54,5 +65,5 @@ end
 # br.macro_indicators
 # br = CountryProfileCliGem::Indicator.new("bra", CountryProfileCliGem::LAND_AREA, 10)
 # br.standard_indicators
-br = CountryProfileCliGem::Indicator.new("bra")
-br.standard_indicators
+# br = CountryProfileCliGem::Indicator.new("bra")
+# br.standard_indicators
