@@ -25,13 +25,14 @@ class CountryProfileCliGem::Output
     puts "We are collecting the data for you........ bear with us........"
     puts ""
 
-    hash = self.country_card(country)
+    standard_indicators = self.country.create_indicator.standard_indicators
+    macro_indicators = self.country.create_indicator(CountryProfileCliGem::LAND_AREA)
 
-    puts "Country name: #{hash[:country_name]}"
-    puts "Country isocode: #{hash[:country_isocode]}"
-    puts "Capital city: #{hash[:capital_city]}"
+    puts "Country name: #{standard_indicators[:country_name]}"
+    puts "Country isocode: #{standard_indicators[:country_isocode]}"
+    puts "Capital city: #{standard_indicators[:capital_city]}"
     puts "Country size (sq. km): #{hash[:country_size]}"
-    puts "Geographic coordinates: longitude(#{hash[:longitude]}), latitude(#{hash[:latitude]})"
+    puts "Geographic coordinates: longitude(#{standard_indicators[:longitude]}), latitude(#{standard_indicators[:latitude]})"
     puts ""
     puts "----------------------------------------------------------------"
     puts ""

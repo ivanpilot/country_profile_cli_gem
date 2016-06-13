@@ -52,7 +52,8 @@ class CountryProfileCliGem::Indicator
 
     indicator_time_series = {}
     json[1].each_with_index do |element, index|
-      indicator_time_series[self.name.instance_variables + "_" + (YEAR_END - index).to_s] = element["value"]
+      # indicator_time_series[self.name.instance_variables + "_" + (YEAR_END - index).to_s] = element["value"]
+      indicator_time_series[(YEAR_END - index).to_s] = element["value"]
     end
     indicator_time_series
   end
