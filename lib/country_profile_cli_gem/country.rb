@@ -11,7 +11,7 @@ class CountryProfileCliGem::Country
     @indicators = []
     @@all << self
     @output = CountryProfileCliGem::Output.new
-    self.output.country = self unless self.class.all.include?(self)
+    self.output.country = self unless self.output.country == self
   end
 
   def self.load_country_list
@@ -39,24 +39,8 @@ class CountryProfileCliGem::Country
     self.add_indicator(CountryProfileCliGem::Indicator.new(name, time_period))
   end
 
-  # def output=(output)
-  #   @output = output
-  #   output.country = self unless output.class.all.include?(self)
-  # end
-
   def self.all
     @@all
-  end
-
-  def country_profile
-
-  end
-
-  def macro_indicators
-  end
-
-  def specific_indicator
-    # for a given indicator, returns the value of this indicator over a specific period of time
   end
 
 end
