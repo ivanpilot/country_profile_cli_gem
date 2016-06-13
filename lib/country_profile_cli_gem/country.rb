@@ -25,6 +25,10 @@ class CountryProfileCliGem::Country
     indicator.country = self unless indicator.country = self
   end
 
+  def find_indicator_by_name(name)
+    self.indicators.find {|indicator| name == indicator.name}
+  end
+
   def country_profile
     # return a hash of all standard and macro indicator
     standard_indicators = CountryProfileCliGem::Indicator.new(self.isocode).standard_indicators

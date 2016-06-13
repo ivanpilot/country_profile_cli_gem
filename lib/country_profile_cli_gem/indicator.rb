@@ -1,5 +1,5 @@
-require_relative "../country_profile_cli_gem"
-require_relative "./version"
+# require_relative "../country_profile_cli_gem"
+# require_relative "./version"
 # require 'pry'
 
 class CountryProfileCliGem::Indicator
@@ -57,14 +57,6 @@ class CountryProfileCliGem::Indicator
     end
     indicator_time_series
   end
-
-  def self.find_by_name(name)
-    self.all.find {|element| element.name == name}
-  end
-
-  # def find_by_country_name(country_name)
-  #   self.all.find {|element| element.country.name == country_name}
-  # end
 
   def self.all
     @@all
