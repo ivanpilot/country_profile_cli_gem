@@ -1,7 +1,20 @@
 class CountryProfileCliGem::Output
 
+  attr_reader :country
+
+  @@all = []
+
+  def initialize
+    @@all << self
+  end
+
+  def country=(country)
+    @country = country
+    @country.output = self unless @country.output == self
+  end
+
   def display_country_list
-    country_hash = self.country_hash
+    country_hash = CountryProfileCliGem::Country.load_country_list
     country_hash.each do |name, isocode|
       puts "#{name}"
     end
@@ -83,6 +96,10 @@ class CountryProfileCliGem::Output
       puts "All data and information presented above are sourced from the World Bank database and are displayed for the year 2014."
       hash
     end
+  end
+
+  def self.all
+    @@all
   end
 
 end

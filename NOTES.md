@@ -47,8 +47,7 @@ Class definition and interaction with each other
     An output belongs to a country. For each country object created, only one output instance will be created
     since there will be only one output per country, methods should be only class methods
     It displays the list of countries (#display_country_list)
-    It displays the standard indicators (#display_standard_indicators)
-    It displays the macro indicators (#display_macro_indicators)
+    It displays the country profile which include standard and macro indicators (#display_country_profile) for a given year
     It displays the time series for a given indicator (#display_time_series)
 
   Indicator class

@@ -12,8 +12,6 @@ class CountryProfileCliGem::Indicator
   @@all = []
 
   def initialize(name = "standard", time_period = 1)
-    # @country = country
-    # country.indicators << self unless country.indicators.include?(self)
     @name = name
     @time_period = time_period
     @year_begin = YEAR_END - @time_period + 1
@@ -29,6 +27,7 @@ class CountryProfileCliGem::Indicator
     uri = URI.parse("http://api.worldbank.org/countries/" + self.country.isocode + "?format=json")
     response = Net::HTTP.get_response(uri)
     json = JSON.parse(response.body)
+
     if json.count == 1
       begin
         raise CountryProfileCliGem::CountryError

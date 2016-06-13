@@ -1,7 +1,7 @@
 class CountryProfileCliGem::Country
 
   attr_accessor :name, :isocode
-  attr_reader :indicators
+  attr_reader :indicators, :output
 
   @@all = []
 
@@ -9,15 +9,12 @@ class CountryProfileCliGem::Country
     @name = name
     @isocode = @@list_available[name.to_sym]
     @indicators = []
+    @output =
     @@all << self
   end
 
   def self.load_country_list
     @@list_available = CountryProfileCliGem::Scrapper.scrape_country_isocode
-  end
-
-  def self.all
-    @@all
   end
 
   def add_indicator(indicator)
@@ -29,11 +26,21 @@ class CountryProfileCliGem::Country
     self.indicators.find {|indicator| name == indicator.name}
   end
 
-  def country_profile
-    # return a hash of all standard and macro indicator
-    standard_indicators = CountryProfileCliGem::Indicator.new(self.isocode).standard_indicators
+  def create_indicator(name = nil)
+    self.add_indicator(CountryProfileCliGem::Indicator.new(name))
+  end
 
-    puts result
+  def output=(output)
+    @output = output
+    output.country = self unless output.all.include?(self)
+  end
+
+  def self.all
+    @@all
+  end
+
+  def country_profile
+
   end
 
   def macro_indicators
@@ -41,10 +48,6 @@ class CountryProfileCliGem::Country
 
   def specific_indicator
     # for a given indicator, returns the value of this indicator over a specific period of time
-  end
-
-  def find_by_name
-    #check if a country has already been searched, so you can pull out data quickly without scrapping again
   end
 
 end
