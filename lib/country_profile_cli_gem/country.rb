@@ -9,8 +9,9 @@ class CountryProfileCliGem::Country
     @name = name
     @isocode = @@list_available[name.to_sym]
     @indicators = []
-    # @output = SHOULD IT BE INITIALIZED FIRST?????
     @@all << self
+    @output = CountryProfileCliGem::Output.new
+    self.output.country = self unless self.class.all.include?(self)
   end
 
   def self.load_country_list
@@ -21,7 +22,7 @@ class CountryProfileCliGem::Country
     self.all.find {|country| country_name == country.name}
   end
 
-  def self.find_or_create_by_name(country_name)
+  def self.find_or_create_country_by_name(country_name)
     self.find_by_country_name(country_name) ? self.find_by_country_name(country_name) : self.new(country_name)
   end
 
@@ -38,10 +39,10 @@ class CountryProfileCliGem::Country
     self.add_indicator(CountryProfileCliGem::Indicator.new(name, time_period))
   end
 
-  def output=(output)
-    @output = output
-    output.country = self unless output.class.all.include?(self)
-  end
+  # def output=(output)
+  #   @output = output
+  #   output.country = self unless output.class.all.include?(self)
+  # end
 
   def self.all
     @@all
