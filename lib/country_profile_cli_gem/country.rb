@@ -17,6 +17,14 @@ class CountryProfileCliGem::Country
     @@list_available = CountryProfileCliGem::Scrapper.scrape_country_isocode
   end
 
+  def self.find_by_country_name(country_name)
+    self.all.find {|country| country_name == country.name}
+  end
+
+  def self.find_or_create_by_name(country_name)
+    self.find_by_country_name(country_name) ? self.find_by_country_name(country_name) : self.new(country_name)
+  end
+
   def add_indicator(indicator)
     self.indicators << indicator unless self.indicators.include?(indicator)
     indicator.country = self unless indicator.country = self
