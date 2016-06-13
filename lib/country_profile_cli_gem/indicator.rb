@@ -11,7 +11,9 @@ class CountryProfileCliGem::Indicator
 
   @@all = []
 
-  def initialize(name = nil, time_period = 1)
+  def initialize(name = "standard", time_period = 1)
+    # @country = country
+    # country.indicators << self unless country.indicators.include?(self)
     @name = name
     @time_period = time_period
     @year_begin = YEAR_END - @time_period + 1
@@ -24,7 +26,7 @@ class CountryProfileCliGem::Indicator
   end
 
   def standard_indicators
-    uri = URI.parse("http://api.worldbank.org/countries/" + self.country + "?format=json")
+    uri = URI.parse("http://api.worldbank.org/countries/" + self.country.isocode + "?format=json")
     response = Net::HTTP.get_response(uri)
     json = JSON.parse(response.body)
     if json.count == 1
@@ -45,7 +47,7 @@ class CountryProfileCliGem::Indicator
   end
 
   def macro_indicators
-    uri = URI.parse("http://api.worldbank.org/countries/" + self.country + "/indicators/" + self.name + "?date=" + self.year_begin.to_s + ":" + YEAR_END.to_s + "&format=json")
+    uri = URI.parse("http://api.worldbank.org/countries/" + self.country.isocode + "/indicators/" + self.name + "?date=" + self.year_begin.to_s + ":" + YEAR_END.to_s + "&format=json")
     response = Net::HTTP.get_response(uri)
     json = JSON.parse(response.body)
 
@@ -56,15 +58,15 @@ class CountryProfileCliGem::Indicator
     indicator_time_series
   end
 
-  def find_by_name(name)
+  def self.find_by_name(name)
     self.all.find {|element| element.name == name}
   end
 
-  def find_by_country_name(country)
-    self.all.find {|element| element.country.name == country.name}
-  end
+  # def find_by_country_name(country_name)
+  #   self.all.find {|element| element.country.name == country_name}
+  # end
 
-  def all
+  def self.all
     @@all
   end
 
