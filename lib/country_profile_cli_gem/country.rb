@@ -44,6 +44,10 @@ class CountryProfileCliGem::Country
     self.find_indicator(name, time_period) ? self.find_indicator(name, time_period) : self.create_indicator(name, time_period)
   end
 
+  def self.country_list
+    @@list_available
+  end
+
   def self.all
     @@all
   end

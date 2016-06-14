@@ -1,15 +1,5 @@
 module CountryProfileCliGem
 
-  LAND_AREA = "AG.LND.TOTL.K2"
-  TOTAL_POPULATION = "SP.POP.TOTL"
-  FEMALE_POPULATION = "SP.POP.TOTL.FE.ZS"
-  POPULATION_DENSITY = "EN.POP.DNST"
-  GDP = "NY.GDP.MKTP.CD"
-  GDP_GROWTH = "NY.GDP.MKTP.KD.ZG"
-  GDP_CAPITA = "NY.GDP.PCAP.CD"
-  LABOR_FORCE = "SL.TLF.TOTL.IN"
-  UNEMPLOYMENT_RATE = "SL.UEM.TOTL.ZS"
-
   CONSTANTS = {
     :land_area => "AG.LND.TOTL.K2",
     :total_population => "SP.POP.TOTL",
@@ -32,5 +22,17 @@ module CountryProfileCliGem
     "NY.GDP.PCAP.CD" => "current $US",
     "SL.TLF.TOTL.IN" => "m ppl",
     "SL.UEM.TOTL.ZS" => "% of total labor force"
+  }
+
+  CONVERSION = {
+    1 => "total_population",
+    2 => "male_population",
+    3 => "female_population",
+    4 => "population_density",
+    5 => "gdp",
+    6 => "gdp_growth",
+    7 => "gdp_capita",
+    8 => "labor_force",
+    9 => "unemployment_rate"
   }
 end

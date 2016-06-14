@@ -13,7 +13,7 @@ class CountryProfileCliGem::Output
     @country.output = self unless @country.output == self
   end
 
-  def display_country_list
+  def self.display_country_list
     country_hash = CountryProfileCliGem::Country.load_country_list
     country_hash.each do |name, isocode|
       puts "#{name}"
@@ -73,8 +73,8 @@ class CountryProfileCliGem::Output
     puts "All data and information presented above are sourced from the World Bank database and are displayed for the year 2014."
   end
 
-  def display_indicator_time_series(constants_key, time_period = 1)
-    if constants_key == "male_population"
+  def display_indicator_time_series(constants_key:, time_period:1)
+    if constants_key == "male_population".to_sym
       display_male_indicator_time_series(time_period)
     else
       display_general_indicator_time_series(CountryProfileCliGem::CONSTANTS[constants_key.to_sym], time_period)
