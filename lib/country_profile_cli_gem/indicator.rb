@@ -1,7 +1,3 @@
-# require_relative "../country_profile_cli_gem"
-# require_relative "./version"
-# require 'pry'
-
 class CountryProfileCliGem::Indicator
 
   YEAR_END = 2014
@@ -52,7 +48,6 @@ class CountryProfileCliGem::Indicator
 
     indicator_time_series = {}
     json[1].each_with_index do |element, index|
-      # indicator_time_series[self.name.instance_variables + "_" + (YEAR_END - index).to_s] = element["value"]
       indicator_time_series[(YEAR_END - index).to_s] = element["value"]
     end
     indicator_time_series
@@ -63,10 +58,3 @@ class CountryProfileCliGem::Indicator
   end
 
 end
-
-# br = CountryProfileCliGem::Indicator.new("bra", CountryProfileCliGem::LAND_AREA, 10)
-# br.macro_indicators
-# br = CountryProfileCliGem::Indicator.new("bra", CountryProfileCliGem::LAND_AREA, 10)
-# br.standard_indicators
-# br = CountryProfileCliGem::Indicator.new("bra")
-# br.standard_indicators

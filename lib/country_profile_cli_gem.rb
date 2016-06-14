@@ -12,6 +12,4 @@ require_relative "./country_profile_cli_gem/error.rb"
 require_relative "./country_profile_cli_gem/indicator"
 require_relative "./country_profile_cli_gem/output"
 require_relative "./country_profile_cli_gem/country"
-
-# require_relative "./country_profile_cli_gem/indicators_current_year"
 require_relative "./country_profile_cli_gem/cli"
