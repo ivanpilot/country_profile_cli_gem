@@ -21,13 +21,13 @@ class CountryProfileCliGem::Output
   end
 
   def output_standard_indicators
-    self.country.create_indicator("standard")
-    self.country.find_indicator_by_name("standard").standard_indicators
+    indicators = self.country.find_or_create_indicator("standard")
+    indicators.standard_indicators
   end
 
-  def output_macro_indicators(indicator_name, time_period = 1)
-    self.country.create_indicator(indicator_name, time_period)
-    self.country.find_indicator_by_name(indicator_name).macro_indicators
+  def output_macro_indicators(name, time_period = 1)
+    indicator = self.country.find_or_create_indicator(name, time_period)
+    indicator.macro_indicators
   end
 
 

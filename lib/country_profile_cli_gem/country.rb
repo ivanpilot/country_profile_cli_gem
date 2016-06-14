@@ -31,12 +31,17 @@ class CountryProfileCliGem::Country
     indicator.country = self unless indicator.country = self
   end
 
-  def find_indicator_by_name(name)
-    self.indicators.find {|indicator| name == indicator.name}
+  def find_indicator(name = "standard", time_period = 1)
+    self.indicators.find {|indicator| indicator.name == name && indicator.time_period == time_period}
   end
 
   def create_indicator(name = "standard", time_period = 1)
     self.add_indicator(CountryProfileCliGem::Indicator.new(name, time_period))
+    self.find_indicator(name, time_period)
+  end
+
+  def find_or_create_indicator(name = "standard", time_period = 1)
+    self.find_indicator(name, time_period) ? self.find_indicator(name, time_period) : self.create_indicator(name, time_period)
   end
 
   def self.all
