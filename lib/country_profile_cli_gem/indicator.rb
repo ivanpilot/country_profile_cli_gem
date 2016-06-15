@@ -24,13 +24,14 @@ class CountryProfileCliGem::Indicator
     response = Net::HTTP.get_response(uri)
     json = JSON.parse(response.body)
 
-    if json.count == 1
-      begin
-        raise CountryProfileCliGem::CountryError
-      rescue CountryProfileCliGem::CountryError => error
-        puts error.message
-      end
-    else
+    # if json.count == 1
+    #   begin
+    #     raise CountryProfileCliGem::CountryError
+    #   rescue CountryProfileCliGem::CountryError => error
+    #     puts error.message
+    #   end
+    # else
+    if json.count > 1
       {
         country_name: json[1][0]["name"],
         country_isocode: json[1][0]["id"],

@@ -22,7 +22,9 @@ class CountryProfileCliGem::CLI
       elsif @@list_available.key?(formatted_input.to_sym)
         @country = CountryProfileCliGem::Country.find_or_create_country_by_name(formatted_input)
         @country.output.display_country_profile
-        self.display_sub_menu
+        if @country.output.output_standard_indicators.class == Hash
+          self.display_sub_menu
+        end
       elsif input == 'exit'
         input
       else
