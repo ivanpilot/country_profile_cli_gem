@@ -7,14 +7,18 @@ class CountryProfileCliGem::Scrapper
     hash = {}
     hash_key = nil
     country_array.collect do |country|
-      if country.css(".WTN").text.strip.match(/\D+/)
+      if self.valid?(country, (".WTN"))
         hash_key = country.css(".WTN").text.strip.to_sym
       end
-      if country.css(".WTNC").text.strip.match(/\D+/) && hash_key != ""
+      if self.valid?(country, (".WTNC")) && hash_key != ""
         hash[hash_key] = country.css(".WTNC").text.strip.downcase
       end
     end
     hash
+  end
+
+  def self.valid?(tag, css)
+    !!tag.css(css).text.strip.match(/\D+/)
   end
 
 end
